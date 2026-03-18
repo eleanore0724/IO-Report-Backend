@@ -9,18 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.dao.DVDRepository;
+import com.example.demo.dao.DVDMapper;
 import com.example.demo.dto.FileQueryParams;
 import com.example.demo.model.DVD;
 import com.example.demo.service.FileService;
@@ -36,7 +31,7 @@ import net.sf.jasperreports.engine.JasperReport;
 public class FileServiceImpl implements FileService{
 	
 	@Autowired
-    private  DVDRepository dvdRepository;
+    private  DVDMapper dvdMapper;
 	
 	@Autowired
     private DataSource dataSource;
@@ -65,7 +60,7 @@ public class FileServiceImpl implements FileService{
         }
         
         if (!dvdList.isEmpty()) {
-        	dvdRepository.saveAll(dvdList);
+        	dvdMapper.batchInsertDvds(dvdList);
         }
 		
 	}
@@ -74,22 +69,21 @@ public class FileServiceImpl implements FileService{
 	public List<DVD> getAllDvds(FileQueryParams fileQueryParams) {
 		int limit = fileQueryParams.getLimit();
         int offset = fileQueryParams.getOffset();
-
-        int pageNumber = offset / limit;
         
+        /*
+        int pageNumber = offset / limit;
         // 建立分頁請求 (第幾頁, 每頁幾筆)
         Pageable pageable = PageRequest.of(pageNumber, limit);
-        
         // 向資料庫查詢
-        Page<DVD> jpaPage = dvdRepository.findAll(pageable);
+        Page<DVD> jpaPage = dvdRepository.findAll(pageable);*/
         
-        return jpaPage.getContent();
+        return dvdMapper.getDvds(limit, offset);
     }
 
 
 	@Override
 	public Integer countDvds(FileQueryParams fileQueryParams) {
-        long totalCount = dvdRepository.count();
+        long totalCount = dvdMapper.countDvds();
         return (int) totalCount;
 	}
 

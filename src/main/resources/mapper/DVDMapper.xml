@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.DVDMapper">
+
+    <insert id="batchInsertDvds">
+        INSERT INTO dvds (title, `year`, genre) VALUES
+        <foreach collection="dvdList" item="dvd" separator=",">
+            (#{dvd.title}, #{dvd.year}, #{dvd.genre})
+        </foreach>
+    </insert>
+
+    <select id="getDvds" resultType="com.example.demo.model.DVD">
+        SELECT id, title, `year`, genre 
+        FROM dvds
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+    <select id="countDvds" resultType="java.lang.Integer">
+        SELECT count(*) FROM dvds
+    </select>
+
+</mapper>
