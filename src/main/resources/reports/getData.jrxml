@@ -1,0 +1,74 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="GetData" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bc38b3-df7c-4713-a68b-66274503a10f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<query language="SQL"><![CDATA[select * from dvds]]></query>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dvds"/>
+	</field>
+	<field name="title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="title"/>
+		<property name="com.jaspersoft.studio.field.label" value="title"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dvds"/>
+	</field>
+	<field name="year" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="year"/>
+		<property name="com.jaspersoft.studio.field.label" value="year"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dvds"/>
+	</field>
+	<field name="genre" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="genre"/>
+		<property name="com.jaspersoft.studio.field.label" value="genre"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dvds"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="textField" uuid="10b55080-d68c-49e8-81ad-4bdaaa422402" x="170" y="20" width="200" height="30" fontName="NotoSansCJKtc-Regular" fontSize="16.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<expression><![CDATA["DVD影片庫存列表"]]></expression>
+		</element>
+	</title>
+	<pageHeader height="35" splitType="Stretch"/>
+	<columnHeader height="30" splitType="Stretch">
+		<element kind="staticText" uuid="8be029a0-4875-4fd5-bc17-6d0d3cd4f2b7" x="20" y="0" width="60" height="30" fontName="SansSerif" fontSize="13.0" hTextAlign="Left">
+			<text><![CDATA[id]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="912bee4f-3bf7-4325-aa65-a34607bd55e7"/>
+		</element>
+		<element kind="staticText" uuid="a587a7ff-0a6b-483d-9122-16d50360e292" x="90" y="0" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[title]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a2de72a-a660-4432-b43d-4501ee99e070"/>
+		</element>
+		<element kind="staticText" uuid="c9f5488e-e22f-4d3b-b13a-fac53347b5f7" x="227" y="0" width="100" height="30" fontSize="13.0" bold="false">
+			<text><![CDATA[year]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7bc75b1-41e0-4f52-81df-24ad3601dbe0"/>
+		</element>
+		<element kind="staticText" uuid="4de82e4d-6504-4389-b1a4-6bb0cd28110f" x="370" y="0" width="100" height="30" fontSize="13.0">
+			<text><![CDATA[genre]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d4541a5-e4ee-4183-9287-5a241f61972e"/>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<element kind="textField" uuid="58a4ec6c-eb5b-485e-98af-9d88191e2b2e" x="20" y="10" width="60" height="30" fontSize="13.0">
+				<expression><![CDATA[$F{id}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="912bee4f-3bf7-4325-aa65-a34607bd55e7"/>
+			</element>
+			<element kind="textField" uuid="b628928e-3498-4805-bf06-2729e5f5654c" x="90" y="10" width="100" height="30" fontName="NotoSansCJKtc-Regular" fontSize="13.0">
+				<expression><![CDATA[$F{title}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a2de72a-a660-4432-b43d-4501ee99e070"/>
+			</element>
+			<element kind="textField" uuid="de1c830e-1095-4377-9b77-5ed141cb2ed9" x="220" y="10" width="100" height="30" fontSize="13.0">
+				<expression><![CDATA[$F{year}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a7bc75b1-41e0-4f52-81df-24ad3601dbe0"/>
+			</element>
+			<element kind="textField" uuid="9722c4b3-4e39-4608-bc48-b3d39462d66a" x="370" y="10" width="100" height="30" fontSize="13.0">
+				<expression><![CDATA[$F{genre}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d4541a5-e4ee-4183-9287-5a241f61972e"/>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
