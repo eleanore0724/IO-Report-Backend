@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -24,15 +26,13 @@ public class SecurityConfig {
 	@Autowired
     private JwtAuthFilter jwtAuthFilter;
 	
-	/*
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
-	*/
 	
 	
-	
+	/*
 	@Bean
 	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 
@@ -49,7 +49,7 @@ public class SecurityConfig {
 
 		return new InMemoryUserDetailsManager(accountA, accountB);
 	}
-	
+	*/
 
 	// Spring Security 內建的驗證中心公開出來，讓 Controller 可以呼叫它來驗證帳密
 	@Bean
@@ -66,7 +66,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(request -> request
         	// 放行所有 OPTIONS 預檢請求
             .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-            .requestMatchers("/auth/login").permitAll()
+            .requestMatchers("/auth/login", "/auth/register").permitAll()
             .requestMatchers("/api/dvds").hasAnyRole("USER", "ADMIN")
             .requestMatchers("/api/generate").hasRole("ADMIN")
             .requestMatchers("/api/upload").hasRole("ADMIN")

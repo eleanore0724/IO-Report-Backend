@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.UserEntity;
+import com.example.demo.service.UserService;
 import com.example.demo.util.JwtUtil;
 
 @CrossOrigin(origins = "*")
@@ -28,19 +30,22 @@ public class AuthController {
 	@Autowired
     private AuthenticationManager authenticationManager;
 	
+	@Autowired
+	private UserService userService;
+	
 	@PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
         String username = loginRequest.get("username");
         String password = loginRequest.get("password");
 
         try {
-            // 將帳號密碼交給 Spring Security 去比對 (會自動去對照 InMemory 的資料)
+            
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
+            
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // username, password, roles
 
-            // 比對成功後，取得用戶資訊與權限 (Role)
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             // 抓取第一個權限並把 "ROLE_" 前綴拿掉，方便存入 JWT
             String role = userDetails.getAuthorities().iterator().next().getAuthority().replace("ROLE_", "");
 
@@ -57,4 +62,13 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("帳號或密碼錯誤");
         }
     }
+	
+	@PostMapping("/register")
+	public ResponseEntity<?> register(@RequestBody UserEntity user) {
+	    String result = userService.registerUser(user);
+	    if ("註冊成功".equals(result)) {
+	        return ResponseEntity.ok(result);
+	    }
+	    return ResponseEntity.badRequest().body(result);
+	}
 }
