@@ -52,7 +52,7 @@ public class AuthController {
             String token = jwtUtil.generateToken(username, role);
 
             //shareTEXT
-            System.out.println("shareTEXT");
+            System.out.println("shareTEXT.");
 
             // 回傳 Token 給前端
             Map<String, String> response = new HashMap<>();
