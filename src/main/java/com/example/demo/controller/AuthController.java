@@ -55,6 +55,8 @@ public class AuthController {
             System.out.println("shareTEXT-2026/03/26 15:45");
             System.out.println("shareTEXT-2026/03/26 16:55 -- shareImage");
             System.out.println("shareTEXT-2026/03/26 17:14 -- v20260326");
+            System.out.println("shareTEXT-2026/03/26 17:14 -- v20260326-fix");
+
 
             // 回傳 Token 給前端
             Map<String, String> response = new HashMap<>();
