@@ -18,10 +18,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-// 每一個發送到 /api/... 的請求，都會先經過這個 Filter。它會去檢查 HTTP Header 裡面有沒有攜帶 Token。
+// 攔截請求、拆解 Header、驗證 JWT 的真偽、把使用者的身分（Role）轉換為 Spring 看得懂的 Authentication 物件。
 
 @Component
-public class JwtAuthFilter extends OncePerRequestFilter{ // 每一次 HTTP 請求，都只會經過這個過濾器一次
+public class JwtAuthFilter extends OncePerRequestFilter{ 
 
 	@Autowired
 	public JwtUtil jwtUtil;

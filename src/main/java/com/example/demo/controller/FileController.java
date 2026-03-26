@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +35,14 @@ import jakarta.validation.constraints.Min;
 @RequestMapping("/api")
 public class FileController {
 	
+	private static final Logger log = LoggerFactory.getLogger(FileController.class);
+	
 	@Autowired
 	private FileService fileService;
 	
 	@PostMapping("/upload")
 	public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file){
-		System.out.println("進到 UploadFileController");
+		log.info("接收到檔案上傳請求，檔名: {}", file.getOriginalFilename());
 		if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("上傳失敗：請選擇檔案");
         }
@@ -50,7 +54,7 @@ public class FileController {
 		
 		try {
 			fileService.uploadFile(file);
-            return ResponseEntity.ok("檔案上傳成功，資料已批次寫入資料庫！");
+            return ResponseEntity.ok("檔案格式解析成功！資料已加入背景排隊序列");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -129,4 +133,19 @@ public class FileController {
         }
 	}
 	
+	@PostMapping("/dvds/click")
+	public ResponseEntity<String> clickDvd(@RequestParam Integer id) {
+	    try {
+	        fileService.incrementViewCount(id);
+	        return ResponseEntity.ok("點擊成功");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("更新失敗");
+	    }
+	}
+	
+	@GetMapping("/dvds/top")
+	public ResponseEntity<List<DVD>> getTopRanking(@RequestParam(defaultValue = "30") int limit) {
+	    List<DVD> topDvds = fileService.getTopPopularDvds(limit);
+	    return ResponseEntity.ok(topDvds);
+	}
 }

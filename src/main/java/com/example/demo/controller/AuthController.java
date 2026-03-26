@@ -39,9 +39,8 @@ public class AuthController {
         String password = loginRequest.get("password");
 
         try {
-            
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password)
+            		new UsernamePasswordAuthenticationToken(username, password)
             );
             
             UserDetails userDetails = (UserDetails) authentication.getPrincipal(); // username, password, roles

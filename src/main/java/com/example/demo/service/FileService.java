@@ -16,5 +16,14 @@ public interface FileService {
 	
 	public Integer countDvds(FileQueryParams fileQueryParams);
 	
-	public byte[] generateReportPdf() throws Exception;
+	public byte[] generateReportPdf() throws Exception;	
+	
+	// 增加：使用者點擊 DVD 增加觀看次數
+    void incrementViewCount(Integer id);
+
+    // 增加：同步 Redis 數據到資料庫
+    void syncRankingToDatabase();
+
+    // 取得前 N 名的熱門 DVD
+    List<DVD> getTopPopularDvds(int n);
 }

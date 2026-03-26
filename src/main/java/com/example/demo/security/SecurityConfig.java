@@ -72,8 +72,7 @@ public class SecurityConfig {
             .requestMatchers("/api/upload").hasRole("ADMIN")
             .anyRequest().authenticated()  // 其他沒有設定到的請求，一律需要登入
         )
-        // 將我們自己寫的 JwtAuthFilter，安插在 Spring Security 內建的 UsernamePasswordAuthenticationFilter 之前
-  
+        // 內建的帳號密碼檢查之前，先檢查請求頭（Header）是否有自定義的 Token。
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
