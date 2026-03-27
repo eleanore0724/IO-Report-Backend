@@ -56,6 +56,7 @@ public class AuthController {
             System.out.println("shareTEXT-2026/03/26 16:55 -- shareImage");
             System.out.println("shareTEXT-2026/03/26 17:14 -- v20260326");
             System.out.println("shareTEXT-2026/03/26 17:14 -- v20260326-fix");
+            System.out.println("addImage -- 2026/03/27 10:09");
 
 
             // 回傳 Token 給前端
